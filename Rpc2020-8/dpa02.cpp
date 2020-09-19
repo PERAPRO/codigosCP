@@ -24,6 +24,7 @@ ll getSum(ll n){
     return sum;
 }
 
+// este no sirvio :c
 int main(){
 	fast_io;
 	int testcases;
