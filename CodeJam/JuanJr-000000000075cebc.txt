@@ -1,0 +1,80 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define endl '\n'
+#define ll long long
+#define sz(x) int(x.size())
+#define dbg(x) cout << #x << " = " << x << endl
+
+bool esMayor(const string& a, const string& b) {
+	// dbg(a);
+	// dbg(b);
+	if (sz(a) < sz(b)) return true;
+	if (sz(a) > sz(b)) return false;
+	for (int i = 0; i < sz(a); ++i) {
+		if (a[i] > b[i]) {
+			return false;
+		} else if (a[i] < b[i]) {
+			return true;
+		}
+	}
+	return false;
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	int ts = 1;
+	while (t--) {
+		int ans = 0;
+		int n;
+		cin >> n;
+		string ant;
+		cin >> ant;
+		for (int i = 1; i < n; ++i) {
+			string act;
+			cin >> act;
+			if (esMayor(ant, act)) {
+				ant = act;
+				continue;
+			}
+			if (ant == act) {
+				act.push_back('0');
+				ans++;
+			} else if (ant.substr(0, sz(act)) == act) {
+				ans += sz(ant) - sz(act);
+				int inx = -1;
+				for (int i = sz(ant) - 1; i >= sz(act); --i) {
+					if (ant[i] != '9') {
+						inx = i;
+						break;
+					}
+				}
+				if (inx == -1) {
+					++ans;
+					while (sz(act) < sz(ant) + 1) {
+						act.push_back('0');
+					}
+				} else {
+					act = ant;
+					act[inx]++;
+					for (int i = inx + 1; i < sz(act); ++i) {
+						act[i] = '0';
+					}
+				}
+			} else {
+				bool ok = ant > act;
+				while (sz(act) < sz(ant) + ok) {
+					act.push_back('0');
+					ans++;
+				}
+			}
+			ant = act;
+		}
+
+		cout << "Case #" << ts++ << ": " << ans << endl;
+	}
+	return 0;
+}
