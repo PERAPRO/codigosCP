@@ -1,0 +1,44 @@
+/// Write by Daniel Perez .PERAPRO
+#include<bits/stdc++.h>
+
+using namespace std;
+#define fast_io ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+using vi=vector<int>;
+using pii=pair<int,int>;
+#define pb push_back
+#define ff first
+#define ss second
+typedef long long ll;
+typedef unsigned long long ull;
+char el = '\n';
+char esp = ' ';
+
+ostream& operator<<(ostream& os, const vector<int> &v){
+    for(auto const &i: v){
+        os<<i<<" ";
+    }
+    os<<'\n';
+    return os;
+}
+string yes="YES";
+string no="NO";
+
+typedef long double T;
+
+int main(){
+	fast_io;
+	/*
+ 	freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    */
+    T w,h;
+    cin>>w>>h;
+    T diagonal=sqrt(w*w+h*h);
+    T rect=w+h;
+    cout<<fixed<<setprecision(15);
+    cout<<rect-diagonal;
+}
+
+/*
+
+*/
