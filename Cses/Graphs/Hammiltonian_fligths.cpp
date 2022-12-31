@@ -1,0 +1,87 @@
+﻿/// Write by Daniel Perez .PERAPRO
+#include<bits/stdc++.h>
+ 
+using namespace std;
+#define fast_io ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+#define pb push_back
+#define ff first
+#define ss second
+#define all(s) s.begin(), s.end()
+#define mp make_pair
+typedef long long ll;
+typedef unsigned long long ull;
+typedef long double ld;
+using vi=vector<int>;
+using vl=vector<ll>;
+using pii=pair<int,int>;
+char el = '\n';
+char esp = ' ';
+ 
+template<class T> bool ckmin(T& a, const T& b) { return b < a ? a = b, 1 : 0; }
+template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0; }
+ 
+ostream& operator<<(ostream& os, const vector<int> &v){
+    for(auto const &i: v){
+        os<<i<<" ";
+    }
+    os<<'\n';
+    return os;
+}
+string yes="YES";
+string no="NO";
+ 
+const int N = 20;
+ 
+int dp[N][(1<<N)];
+ 
+vector<vi> mx(N, vi(N, 0));
+ 
+int target, n;
+ 
+const int mod = 1e9+7;
+ 
+int go(int node, int visited){
+    if(visited == target) return node == n - 1;
+    
+    int &ans = dp[node][visited];
+    
+    if(ans == -1){
+        ans = 0;
+        for(int i = 0;i<n;i++){
+            if( mx[node][i] && !(visited & (1<<i)) ){
+                ans = ( ans + (go(i, visited | (1<<i) ) * 1LL * mx[node][i]) ) % mod;
+            }
+        }
+    }
+    return ans;
+}
+ 
+int main(){
+	fast_io;
+	/*
+ 	freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    */
+    
+    int m;
+    cin>>n>>m;
+    
+    target = (1<<n) - 1;
+    //cout<<target<<el;
+    memset(dp, -1, sizeof dp);
+    
+    for(int i=0;i<m;i++){
+        int a,b;
+        cin>>a>>b;
+        a--,b--;
+        mx[a][b]++;
+    }
+    
+    cout<<go(0,1)<<el;
+    
+    
+}
+ 
+/*
+ 
+*/
