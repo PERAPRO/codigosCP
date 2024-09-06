@@ -70,21 +70,18 @@ int main(){
         sort(plantas.begin(),plantas.end());
 
         cin>>points[0].ff>>points[0].ss;
+        ids.pb(points[0].ff);
+        ids.pb(points[0].ss);
         for(int i=1;i<v;i++){
             cin>>points[i].ff>>points[i].ss;
-            if(points[i-1].ss == points[i].ss){
-                if(points[i].ff<points[i].ff){ //points[i] abre
-                    eventos.push({points[i],1});
-                    eventos.push({points[i-1],2});
-                }else{  //points[i-1] abre
-                    eventos.push({points[i-1],1});
-                    eventos.push({points[i],2});
-                }
+            if(i&1){
+                eventos.push({points[i],1});
+                eventos.push({points[i - 1],2});
             }
             ids.pb(points[i].ff);
             ids.pb(points[i].ss);
         }
-        if(points[0].ss == points[v-1].ss){  //Si o si el ultimo abre  ???
+        if(v & 1){  //Si o si el ultimo abre  ???
             eventos.push({points[v-1],1});
             eventos.push({points[0],2});
         }
